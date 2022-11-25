@@ -12,7 +12,6 @@ export default class MatchesModel {
         { model: Team, as: 'teamAway', attributes: { exclude: ['id'] } },
       ],
     });
-    // console.log(result, 'match result');
     return result;
   }
 
@@ -25,5 +24,10 @@ export default class MatchesModel {
       ],
     });
     return result;
+  }
+
+  public async create(match: IMatch): Promise<IMatch> {
+    const result = await this.model.create({ ...match, inProgress: 'true' });
+    return result as IMatch;
   }
 }
