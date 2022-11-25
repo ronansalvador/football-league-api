@@ -1,6 +1,7 @@
 import MatchesModel from '../models/MatchesModel';
 import TeamsService from './TeamService';
 import IMatch from '../interface/IMatch';
+import IGoals from '../interface/IGoals';
 
 interface MatchResponse {
   status: number;
@@ -49,6 +50,11 @@ export default class MatchesService {
 
   public async finishMatch(id: string): Promise<string> {
     const result = await this.model.finishMatch(id);
+    return result;
+  }
+
+  public async updateMatch(goals: IGoals): Promise<string> {
+    const result = await this.model.updateMatch(goals);
     return result;
   }
 }

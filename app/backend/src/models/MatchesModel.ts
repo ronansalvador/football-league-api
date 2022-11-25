@@ -1,3 +1,4 @@
+import IGoals from '../interface/IGoals';
 import Team from '../database/models/TeamModel';
 import matchModel from '../database/models/MatchModel';
 import IMatch from '../interface/IMatch';
@@ -34,5 +35,11 @@ export default class MatchesModel {
   public async finishMatch(id: string): Promise<string> {
     await this.model.update({ inProgress: false }, { where: { id } });
     return 'Finished';
+  }
+
+  public async updateMatch(goals: IGoals): Promise<string> {
+    const { id, homeTeamGoals, awayTeamGoals } = goals;
+    await this.model.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
+    return 'Updated';
   }
 }
