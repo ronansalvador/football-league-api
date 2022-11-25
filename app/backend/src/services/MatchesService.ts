@@ -29,7 +29,7 @@ export default class MatchesService {
   public async create(match: IMatch): Promise<MatchResponse> {
     if (match.homeTeam === match.awayTeam) {
       return {
-        status: 401,
+        status: 422,
         message: 'It is not possible to create a match with two equal teams',
       };
     }

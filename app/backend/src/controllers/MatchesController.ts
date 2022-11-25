@@ -14,6 +14,7 @@ export default class MatchesController {
     const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals } = req.body;
     const match = { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals };
     const { status, message, result } = await this.service.create(match);
+    console.log('create', result, status, message);
     if (!result) {
       return res.status(status).json({ message });
     }
