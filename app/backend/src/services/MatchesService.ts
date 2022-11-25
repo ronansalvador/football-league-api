@@ -46,4 +46,9 @@ export default class MatchesService {
     const result = await this.model.create(match);
     return { status: 201, result };
   }
+
+  public async finishMatch(id: string): Promise<string> {
+    const result = await this.model.finishMatch(id);
+    return result;
+  }
 }

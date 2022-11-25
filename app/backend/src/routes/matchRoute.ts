@@ -7,5 +7,6 @@ const matchesController = new MatchesController();
 
 matchRoute.get('/', matchesController.findAll);
 matchRoute.post('/', auth.tokenValidation, matchesController.create);
+matchRoute.patch('/:id/finish', matchesController.finishMatch);
 
 export default matchRoute;
