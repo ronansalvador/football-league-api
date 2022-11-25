@@ -3,13 +3,13 @@ import * as chai from 'chai';
 // @ts-ignore
 import chaiHttp = require('chai-http');
 
-import { app } from '../app';
+import App from '../app';
 import User from '../database/models/UserModel';
 
 import { Response } from 'superagent';
 
 chai.use(chaiHttp);
-
+const { app } = new App();
 const { expect } = chai;
 
 describe('Verifica rota de Login', () => {
