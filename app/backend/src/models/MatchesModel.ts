@@ -1,3 +1,4 @@
+import IEditedMatch from '../interface/IEditedMatch';
 import IGoals from '../interface/IGoals';
 import Team from '../database/models/TeamModel';
 import matchModel from '../database/models/MatchModel';
@@ -42,4 +43,40 @@ export default class MatchesModel {
     await this.model.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
     return 'Updated';
   }
+
+  public async queryAllHome(): Promise<IEditedMatch[]> {
+    const result = await this.model.findAll({
+      where: { inProgress: false },
+      include: [
+        { model: Team, as: 'teamHome', attributes: { exclude: ['id'] } },
+      ],
+    });
+
+    const editedMatches = result.map(MatchesModel.generateHomeMatch);
+    return editedMatches;
+  }
+
+  public async queryAllAway(): Promise<IEditedMatch[]> {
+    const result = await this.model.findAll({
+      where: { inProgress: false },
+      include: [
+        { model: Team, as: 'teamAway', attributes: { exclude: ['id'] } },
+      ],
+    });
+
+    const editedMatches = result.map(MatchesModel.generateAwayMatch);
+    return editedMatches;
+  }
+
+  private static generateHomeMatch = (match: IMatch) => ({
+    currTeamName: match.teamHome?.teamName,
+    currTeamGoals: match.homeTeamGoals,
+    rivalTeamGoals: match.awayTeamGoals,
+  });
+
+  private static generateAwayMatch = (match: IMatch) => ({
+    currTeamName: match.teamAway?.teamName,
+    currTeamGoals: match.awayTeamGoals,
+    rivalTeamGoals: match.homeTeamGoals,
+  });
 }
