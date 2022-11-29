@@ -6,5 +6,6 @@ const leaderboardController = new LeaderboardController();
 
 leaderboardRoute.get('/home', leaderboardController.findAllHome);
 leaderboardRoute.get('/away', leaderboardController.findAllAway);
+leaderboardRoute.get('/', leaderboardController.findAll);
 
 export default leaderboardRoute;
