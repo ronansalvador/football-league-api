@@ -3,7 +3,8 @@ import loginRoute from './routes/loginRoute';
 import matchRoute from './routes/matchRoute';
 import teamRoute from './routes/teamRoute';
 import leaderboardRoute from './routes/leaderboardRoute';
-
+const swaggerUi = require('swagger-ui-express')
+const swaggerFile = require('../swagger_output.json');
 class App {
   public app: express.Express;
 
@@ -30,6 +31,7 @@ class App {
     this.app.use('/teams', teamRoute);
     this.app.use('/matches', matchRoute);
     this.app.use('/leaderboard', leaderboardRoute);
+    this.app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
   }
 
   public start(PORT: string | number):void {
